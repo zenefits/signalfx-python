@@ -4,12 +4,13 @@ import collections
 import json
 import logging
 import pprint
-import Queue
+
+import queue
 import requests
 import threading
 
-import version
-from constants import DEFAULT_INGEST_ENDPOINT, DEFAULT_API_ENDPOINT,\
+import signalfx.version
+from signalfx.constants import DEFAULT_INGEST_ENDPOINT, DEFAULT_API_ENDPOINT,\
     DEFAULT_TIMEOUT, DEFAULT_BATCH_SIZE, JSON_HEADER_CONTENT_TYPE, \
     PROTOBUF_HEADER_CONTENT_TYPE, SUPPORTED_EVENT_CATEGORIES
 
@@ -103,7 +104,7 @@ class SignalFxClient(BaseSignalFx):
         super(SignalFxClient, self).__init__(api_token, **kwargs)
         self._ingest_session = self._prepare_ingest_session()
         self._api_session = self._prepare_api_session()
-        self._queue = Queue.Queue()
+        self._queue = queue.Queue()
         self.queue_stop_signal = SignalFxClient.QueueStopSignal()
         self._thread_running = False
         self._lock = threading.Lock()

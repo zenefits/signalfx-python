@@ -30,8 +30,8 @@ in depth examples.
 
 import logging
 
-import client
-from constants import *  # flake8: noqa
+import signalfx.client
+from signalfx.constants import *  # flake8: noqa
 
 
 __author__ = 'SignalFx, Inc'

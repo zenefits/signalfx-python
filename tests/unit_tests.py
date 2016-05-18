@@ -47,10 +47,10 @@ def test_delete():
     s.delete_tag('not_there')
 
 def main():
-    test_post(); print 'posted'
-    test_get_and_search(); print 'got'
-    test_update(); print 'put'
-    test_delete(); print 'deleted'
+    test_post(); print('posted')
+    test_get_and_search(); print('got')
+    test_update(); print('put')
+    test_delete(); print('deleted')
 
 if __name__ == '__main__':
     main()

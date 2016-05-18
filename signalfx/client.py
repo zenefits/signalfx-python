@@ -15,7 +15,7 @@ from signalfx.constants import DEFAULT_INGEST_ENDPOINT, DEFAULT_API_ENDPOINT,\
     PROTOBUF_HEADER_CONTENT_TYPE, SUPPORTED_EVENT_CATEGORIES
 
 try:
-    import generated_protocol_buffers.signal_fx_protocol_buffers_pb2 as sf_pbuf
+    from . import generated_protocol_buffers.signal_fx_protocol_buffers_pb2 as sf_pbuf
 except ImportError:
     sf_pbuf = None
 
@@ -195,7 +195,7 @@ class SignalFxClient(BaseSignalFx):
             counters=counters)
         if not data:
             return None
-        for metric_type, datapoints in data.iteritems():
+        for metric_type, datapoints in data.items():
             if not datapoints:
                 continue
             if not isinstance(datapoints, list):
@@ -622,7 +622,7 @@ class ProtoBufSignalFx(SignalFxClient):
         if not isinstance(dimensions, dict):
             raise ValueError('Invalid dimensions {0}; must be a dict!'
                              .format(dimensions))
-        for key, value in dimensions.items():
+        for key, value in list(dimensions.items()):
             dim = pbuf_obj.dimensions.add()
             dim.key = key
             dim.value = value
@@ -631,7 +631,7 @@ class ProtoBufSignalFx(SignalFxClient):
         if not isinstance(properties, dict):
             raise ValueError('Invalid dimensions {0}; must be a dict!'
                              .format(properties))
-        for key, value in properties.items():
+        for key, value in list(properties.items()):
             prop = pbuf_obj.properties.add()
             prop.key = key
             self._assign_property_value(prop, value)
@@ -704,7 +704,7 @@ class JsonSignalFx(SignalFxClient):
     def _batch_data(self, datapoints_list):
         datapoints = collections.defaultdict(list)
         for item in datapoints_list:
-            datapoints[item.keys()[0]].append(item[item.keys()[0]])
+            datapoints[list(item.keys())[0]].append(item[list(item.keys())[0]])
         return json.dumps(datapoints)
 
     def _send_event(self, event_data=None, url=None, session=None):

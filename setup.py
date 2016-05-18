@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-execfile('signalfx/version.py')
+exec(compile(open('signalfx/version.py').read(), 'signalfx/version.py', 'exec'))
 
 with open('README.md') as readme:
     long_description = readme.read()

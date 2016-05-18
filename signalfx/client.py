@@ -15,7 +15,7 @@ from signalfx.constants import DEFAULT_INGEST_ENDPOINT, DEFAULT_API_ENDPOINT,\
     PROTOBUF_HEADER_CONTENT_TYPE, SUPPORTED_EVENT_CATEGORIES
 
 try:
-    from . import generated_protocol_buffers.signal_fx_protocol_buffers_pb2 as sf_pbuf
+    import signalfx.generated_protocol_buffers.signal_fx_protocol_buffers_pb2 as sf_pbuf
 except ImportError:
     sf_pbuf = None
 
